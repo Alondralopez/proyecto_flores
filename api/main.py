@@ -31,12 +31,26 @@ app.add_middleware(
 # -----------------------------------
 # Cargar modelo UNA sola vez
 # -----------------------------------
-try:
-    modelo = load_model("api/model/modelo_flowers.keras")
-    print("Modelo cargado correctamente")
-except Exception as e:
-    raise RuntimeError(f"Error cargando el modelo: {e}")
+import os
+import gdown
+from tensorflow.keras.models import load_model
 
+MODELO_LOCAL = "api/model/modelo_flowers.keras"
+
+FILE_ID = "1DZo6i_nFinpxTexPmSxjOgsP0qtKGdqF"
+
+if not os.path.exists(MODELO_LOCAL):
+
+    os.makedirs("api/model", exist_ok=True)
+
+    url = f"https://drive.google.com/uc?id={FILE_ID}"
+
+    print("Descargando modelo desde Google Drive...")
+    gdown.download(url, MODELO_LOCAL, quiet=False)
+
+print("Cargando modelo...")
+modelo = load_model(MODELO_LOCAL)
+print("Modelo cargado correctamente")
 # -----------------------------------
 # Clases del modelo
 # -----------------------------------
