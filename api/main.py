@@ -32,7 +32,7 @@ app.add_middleware(
 # Cargar modelo UNA sola vez
 # -----------------------------------
 try:
-    modelo = load_model("model/modelo_flowers.keras")
+    modelo = load_model("api/model/modelo_flowers.keras")
     print("Modelo cargado correctamente")
 except Exception as e:
     raise RuntimeError(f"Error cargando el modelo: {e}")
